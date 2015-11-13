@@ -10,9 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * @author ddiaz
@@ -28,10 +28,11 @@ public class Comercio {
 	@Column(name = "nombre", unique=true, nullable = false)
 	private String nombre;
 	private String linkImagen;
-	private int puntuacion;
+	private Integer puntuacion;
 	
-	
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date updated;
 	private boolean borrado;
 	
@@ -79,17 +80,6 @@ public class Comercio {
 		this.updated = updated;
 	}
 	
-	
-	@PrePersist
-	protected void onCreate(){
-		created = new Date();
-	}
-	
-	
-	@PreUpdate
-	protected void onUpdate(){
-		updated = new Date();
-	}
 	/**
 	 * @return the linkImagen
 	 */
@@ -105,13 +95,13 @@ public class Comercio {
 	/**
 	 * @return the puntuacion
 	 */
-	public int getPuntuacion() {
+	public Integer getPuntuacion() {
 		return puntuacion;
 	}
 	/**
 	 * @param puntuacion the puntuacion to set
 	 */
-	public void setPuntuacion(int puntuacion) {
+	public void setPuntuacion(Integer puntuacion) {
 		this.puntuacion = puntuacion;
 	}
 }

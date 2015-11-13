@@ -9,7 +9,7 @@ import java.util.List;
  * @author ddiaz
  *
  */
-public class Return {
+public class ReturnAdapter {
 	
 	private int code;
 	private String message;
@@ -20,7 +20,7 @@ public class Return {
 	/**
 	 * se crea y se inicializa.
 	 */
-	public Return() {
+	public ReturnAdapter() {
 		super();
 		this.code = StandardResponse.OK;
 		this.message = StandardResponse.MESSAGE_OK;

@@ -3,15 +3,19 @@
  */
 package main.service.implement;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import main.dao.interfaces.IComercioDao;
 import main.dao.model.Comercio;
 import main.service.interfaces.IComercioService;
+import main.utils.ReturnAdapter;
+import main.utils.StandardResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author ddiaz
@@ -36,16 +40,91 @@ public class ComercioService implements IComercioService {
 		return comercioDao.findAllComercios();
 	}
 	
-	public void saveComercio(Comercio comercio) {
+	public ReturnAdapter saveComercio(Comercio comercio) throws Exception{
+		ReturnAdapter result = new ReturnAdapter();
+		//ponemos la fecha de creacion 
+		comercio.setCreated(new Date());
 		comercioDao.saveComercio(comercio);
+		
+		result.setCode(StandardResponse.OK);
+		result.setMessage(StandardResponse.MESSAGE_OK_CREADO);
+		result.setNumResult(1);
+		List<Object> lista = new ArrayList<Object>();
+		lista.add(comercioDao.findById(comercio.getId()));
+		result.setData(lista);
+		
+		return result;
     }
 	
-	public void deleteComercioBySsn(Integer id) {
-		comercioDao.deleteComercioById(id);
+	public ReturnAdapter deleteComercio(Integer id) throws Exception{
+		ReturnAdapter result = new ReturnAdapter();
+		//comprobamos primero si el elemento existe.
+		Comercio leido = comercioDao.findById(id);
+		
+		if (leido==null){	
+			//si no existe no se puede borrar.
+			
+			result.setCode(StandardResponse.SIN_CONTENIDO);
+			result.setMessage(StandardResponse.MESSAGE_SIN_CONTENIDO);
+			result.setNumResult(0);
+		}else{		
+			comercioDao.deleteComercioById(id);			
+			result.setCode(StandardResponse.OK);
+			result.setMessage(StandardResponse.MESSAGE_OK_ELIMINADO);
+			result.setNumResult(0);
+		}
+		
+		return result;
 	}
 	
-	public void updateComercio(Comercio comercio){
-		comercioDao.updateComercio(comercio);
+	public ReturnAdapter updateComercio(Integer id, Comercio comercio) throws Exception{
+		ReturnAdapter result = new ReturnAdapter();
+		//comprobamos primero si el elemento existe.
+		Comercio leido = comercioDao.findById(id);
+		
+		if (leido!=null){					
+			result.setCode(StandardResponse.OK);
+			result.setMessage(StandardResponse.MESSAGE_OK_ACTUALIZADO);
+			result.setNumResult(1);			
+			
+			Comercio elementoGuardar = volcarValores(comercio, leido);
+			comercioDao.updateComercio(elementoGuardar);
+			
+			List<Object> lista = new ArrayList<Object>();
+			lista.add(elementoGuardar);
+			result.setData(lista);
+			
+		}else{
+			result.setCode(StandardResponse.SIN_CONTENIDO);
+			result.setMessage(StandardResponse.MESSAGE_SIN_CONTENIDO);
+			result.setNumResult(0);
+		}		
+		return result;
     }
+
+	/**
+	 * 
+	 * se retorna un elemento combinado de ambos.
+	 * 
+	 * @param pet
+	 * @param leido
+	 * @return
+	 */
+	private Comercio volcarValores(Comercio pet, Comercio leido) {
+		Comercio res = leido;
+		 
+		if (pet.getNombre()!=null)
+			res.setNombre(pet.getNombre());
+		if (pet.getLinkImagen()!=null)
+			res.setLinkImagen(pet.getLinkImagen());
+		if (pet.getPuntuacion()!=null)
+			res.setPuntuacion(pet.getPuntuacion());
+		
+		res.setId(leido.getId());
+		res.setCreated(leido.getCreated());
+		
+		res.setUpdated(new Date());
+		return res;
+	}
 
 }

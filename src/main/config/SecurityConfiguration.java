@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
- 
+
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication().withUser("diego").password("abc123").roles("USER");
@@ -20,15 +20,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
      
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-  
+    	
       http.authorizeRequests()      	
-        .antMatchers("/", "/home").permitAll() 
+        .antMatchers("/", "/home").permitAll();
+      /*
         .antMatchers("/admin/**").access("hasRole('ADMIN')")
-        .antMatchers("/data/**").access("hasRole('ADMIN') and hasRole('DBA')")
+        .antMatchers("/data/**").access("hasRole('ADMIN') and hasRole('DBA')")        
         .and().formLogin();
+        */
         //.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
       
         //.and().exceptionHandling().accessDeniedPage("/Access_Denied");
-  
+      
+      http.csrf().disable();
+      
     }
+    
 }

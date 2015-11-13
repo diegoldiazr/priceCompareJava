@@ -31,7 +31,13 @@ public class StandardResponse {
 	private static final HashMap<Class<? extends Exception>, Integer> LIST_EXCEPTIONS 
 		= new LinkedHashMap<Class<? extends Exception>, Integer>();
 	public static final String MESSAGE_OK = "OK";
+	public static final String MESSAGE_OK_CREADO = "The element was created";
+	public static final String MESSAGE_OK_ELIMINADO = "The element was removed";
+	public static final String MESSAGE_OK_ACTUALIZADO = "The element was updated";
 	public static final String MESSAGE_SIN_CONTENIDO = "No Content";
+	
+	
+	
 	
 	static {
 		
@@ -55,7 +61,7 @@ public class StandardResponse {
 	 *            Logger para escribir la excepcion en log.
 	 * @return Response
 	 */
-	public static Return getResponseInExceptionInt(Throwable ex, Logger log) {
+	public static ReturnAdapter getResponseInExceptionInt(Throwable ex, Logger log) {
 		Class<? extends Throwable> class1 = ex.getClass();
 		Integer integer = LIST_EXCEPTIONS.get(class1);		
 
@@ -65,7 +71,7 @@ public class StandardResponse {
 			integer = SERVICIO_NO_DISPONIBLE;
 		}
 		log.debug(ex);
-		Return result = new Return();
+		ReturnAdapter result = new ReturnAdapter();
 		result.setCode(integer);
 		result.setMessage(ex + " \n " + ex.getMessage() + " \n " + ex.getLocalizedMessage());		
 		result.setNumResult(0);

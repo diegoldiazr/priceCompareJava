@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import main.utils.Return;
+import main.utils.ReturnAdapter;
 import main.utils.Version;
 
 @RestController
@@ -26,12 +26,12 @@ public class VersionController {
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value="/version", method = RequestMethod.GET)
-	public Return version (HttpServletRequest request, HttpServletResponse response) {
+	public ReturnAdapter version (HttpServletRequest request, HttpServletResponse response) {
 	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	    if (auth != null){    
 	        new SecurityContextLogoutHandler().logout(request, response, auth);
 	    }
-	    Return resultado = new Return();
+	    ReturnAdapter resultado = new ReturnAdapter();
 	    
 	    Version version = new Version();
 	    List data = new ArrayList();
