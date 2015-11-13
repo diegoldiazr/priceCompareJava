@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class Logout {
 	
 	@SuppressWarnings("unused")
-	private Logger log = Logger.getLogger(LibretaController.class);
+	private Logger log = Logger.getLogger(Logout.class);
 
 	@RequestMapping(value="/logout", method = RequestMethod.GET)
 	public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
@@ -24,6 +24,6 @@ public class Logout {
 	    if (auth != null){    
 	        new SecurityContextLogoutHandler().logout(request, response, auth);
 	    }
-	    return "<a href='http://localhost:8080/memos/data/libretas'>Volver</a>";//You can redirect wherever you want, but generally it's a good practice to show login screen again.
+	    return "<a href='http://localhost:8080/priceCompareJava/data/comercios'>Volver</a>";//You can redirect wherever you want, but generally it's a good practice to show login screen again.
 	}
 }

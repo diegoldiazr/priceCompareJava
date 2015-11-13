@@ -34,7 +34,7 @@ public class VersionController {
 	    Return resultado = new Return();
 	    
 	    Version version = new Version();
-	    List data = new ArrayList<>();
+	    List data = new ArrayList();
 	    data.add(version);
 	    resultado.setData(data);
 	    
