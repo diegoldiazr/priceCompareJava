@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import main.dao.interfaces.IComercioDao;
-import main.dao.model.Comercio;
-import main.service.interfaces.IComercioService;
+import main.dao.interfaces.IArticuloDao;
+import main.dao.model.Articulo;
+import main.service.interfaces.IArticuloService;
 import main.utils.ReturnAdapter;
 import main.utils.StandardResponse;
 
@@ -23,43 +23,43 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Component
 @Transactional
-public class ComercioService implements IComercioService {
+public class ArticuloService implements IArticuloService {
 
 	 @Autowired
-	 private IComercioDao comercioDao;
+	 private IArticuloDao articuloDao;
 	     
 	 
 	/* (non-Javadoc)
-	 * @see service.interfaces.IComercioService#getComercioById(java.lang.Integer)
+	 * @see service.interfaces.IArticuloService#getArticuloById(java.lang.Integer)
 	 */	
-	public Comercio getComercioById(Integer id) throws Exception {
-		return comercioDao.findById(id);		
+	public Articulo getArticuloById(Integer id) throws Exception {
+		return articuloDao.findById(id);		
 	}
 	
-	public List<Comercio> getComercios() throws Exception{
-		return comercioDao.findAllComercios();
+	public List<Articulo> getArticulos() throws Exception{
+		return articuloDao.findAllArticulos();
 	}
 	
-	public ReturnAdapter saveComercio(Comercio comercio) throws Exception{
+	public ReturnAdapter saveArticulo(Articulo articulo) throws Exception{
 		ReturnAdapter result = new ReturnAdapter();
 		//ponemos la fecha de creacion 
-		comercio.setCreated(new Date());
-		comercioDao.saveComercio(comercio);
+		articulo.setCreated(new Date());
+		articuloDao.saveArticulo(articulo);
 		
 		result.setCode(StandardResponse.OK);
 		result.setMessage(StandardResponse.MESSAGE_OK_CREADO);
 		result.setNumResult(1);
 		List<Object> lista = new ArrayList<Object>();
-		lista.add(comercioDao.findById(comercio.getId()));
+		lista.add(articuloDao.findById(articulo.getId()));
 		result.setData(lista);
 		
 		return result;
     }
 	
-	public ReturnAdapter deleteComercio(Integer id) throws Exception{
+	public ReturnAdapter deleteArticulo(Integer id) throws Exception{
 		ReturnAdapter result = new ReturnAdapter();
 		//comprobamos primero si el elemento existe.
-		Comercio leido = comercioDao.findById(id);
+		Articulo leido = articuloDao.findById(id);
 		
 		if (leido==null){	
 			//si no existe no se puede borrar.
@@ -68,7 +68,7 @@ public class ComercioService implements IComercioService {
 			result.setMessage(StandardResponse.MESSAGE_SIN_CONTENIDO);
 			result.setNumResult(0);
 		}else{		
-			comercioDao.deleteComercioById(id);			
+			articuloDao.deleteArticuloById(id);			
 			result.setCode(StandardResponse.OK);
 			result.setMessage(StandardResponse.MESSAGE_OK_ELIMINADO);
 			result.setNumResult(0);
@@ -77,18 +77,18 @@ public class ComercioService implements IComercioService {
 		return result;
 	}
 	
-	public ReturnAdapter updateComercio(Integer id, Comercio comercio) throws Exception{
+	public ReturnAdapter updateArticulo(Integer id, Articulo articulo) throws Exception{
 		ReturnAdapter result = new ReturnAdapter();
 		//comprobamos primero si el elemento existe.
-		Comercio leido = comercioDao.findById(id);
+		Articulo leido = articuloDao.findById(id);
 		
 		if (leido!=null){					
 			result.setCode(StandardResponse.OK);
 			result.setMessage(StandardResponse.MESSAGE_OK_ACTUALIZADO);
 			result.setNumResult(1);			
 			
-			Comercio elementoGuardar = volcarValores(comercio, leido);
-			comercioDao.updateComercio(elementoGuardar);
+			Articulo elementoGuardar = volcarValores(articulo, leido);
+			articuloDao.updateArticulo(elementoGuardar);
 			
 			List<Object> lista = new ArrayList<Object>();
 			lista.add(elementoGuardar);
@@ -110,16 +110,17 @@ public class ComercioService implements IComercioService {
 	 * @param leido
 	 * @return
 	 */
-	private Comercio volcarValores(Comercio pet, Comercio leido) {
-		Comercio res = leido;
+	private Articulo volcarValores(Articulo pet, Articulo leido) {
+		Articulo res = leido;
 		 
 		if (pet.getNombre()!=null)
 			res.setNombre(pet.getNombre());
 		if (pet.getLinkImagen()!=null)
 			res.setLinkImagen(pet.getLinkImagen());
-		if (pet.getPuntuacion()!=null)
-			res.setPuntuacion(pet.getPuntuacion());		
-			
+		if (pet.getTipo()!=null)
+			res.setTipo(pet.getTipo());
+		
+		
 		res.setId(leido.getId());
 		res.setCreated(leido.getCreated());
 		res.setBorrado(pet.isBorrado());
