@@ -15,45 +15,52 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
+ * 
+ * Tipo de articulos.
+ * 
  * @author ddiaz
  *
  */
 @Entity
-@Table(name="comercio")
-public class Comercio {
+@Table(name="tipo")
+public class Tipo {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(name = "nombre", unique=true, nullable = false)
-	private String nombre;
-	private String linkImagen;
-	private Integer puntuacion;
-	
+	@Column(name = "descripcion", unique=true, nullable = false)
+	private String descripcion;
+		
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updated;
 	private boolean borrado;
 	
+	
+	/**
+	 * @return the id
+	 */
 	public int getId() {
 		return id;
 	}
+	/**
+	 * @param id the id to set
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getNombre() {
-		return nombre;
+	/**
+	 * @return the descripcion
+	 */
+	public String getDescripcion() {
+		return descripcion;
 	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	
-	public boolean isBorrado() {
-		return borrado;
-	}
-	public void setBorrado(boolean borrado) {
-		this.borrado = borrado;
+	/**
+	 * @param descripcion the descripcion to set
+	 */
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 	/**
 	 * @return the created
@@ -79,39 +86,27 @@ public class Comercio {
 	public void setUpdated(Date updated) {
 		this.updated = updated;
 	}
-	
 	/**
-	 * @return the linkImagen
+	 * @return the borrado
 	 */
-	public String getLinkImagen() {
-		return linkImagen;
+	public boolean isBorrado() {
+		return borrado;
 	}
 	/**
-	 * @param linkImagen the linkImagen to set
+	 * @param borrado the borrado to set
 	 */
-	public void setLinkImagen(String linkImagen) {
-		this.linkImagen = linkImagen;
-	}
-	/**
-	 * @return the puntuacion
-	 */
-	public Integer getPuntuacion() {
-		return puntuacion;
-	}
-	/**
-	 * @param puntuacion the puntuacion to set
-	 */
-	public void setPuntuacion(Integer puntuacion) {
-		this.puntuacion = puntuacion;
+	public void setBorrado(boolean borrado) {
+		this.borrado = borrado;
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Comercio [id=" + id + ", nombre=" + nombre + ", linkImagen="
-				+ linkImagen + ", puntuacion=" + puntuacion + ", created="
+		return "Tipo [id=" + id + ", descripcion=" + descripcion + ", created="
 				+ created + ", updated=" + updated + ", borrado=" + borrado
 				+ "]";
 	}
+
+	
 }

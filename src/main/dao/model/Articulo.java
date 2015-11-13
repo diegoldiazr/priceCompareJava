@@ -119,6 +119,15 @@ public class Articulo {
 	public void setBorrado(boolean borrado) {
 		this.borrado = borrado;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Articulo [id=" + id + ", nombre=" + nombre + ", linkImagen="
+				+ linkImagen + ", tipo=" + tipo + ", created=" + created
+				+ ", updated=" + updated + ", borrado=" + borrado + "]";
+	}
 
 	
 }

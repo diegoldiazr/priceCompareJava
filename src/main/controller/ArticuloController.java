@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 
  * 
- * Esta entidad gestiona los diversos establecimientos.
+ * Esta entidad gestiona los diversos articulos.
  * 
  * @author ddiaz
  *
