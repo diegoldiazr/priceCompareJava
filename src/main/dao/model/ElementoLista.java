@@ -22,19 +22,17 @@ import javax.persistence.TemporalType;
  *
  */
 @Entity
-@Table(name="precio")
-public class Precio {
+@Table(name="lista")
+public class ElementoLista {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "idComercio", unique=true)
-	private int idComercio;
+	@Column(name = "idLista", unique=true)
+	private int idLista;
 	@Column(name = "idArticulo", unique=true)
 	private int idArticulo;
-	
-	private Double precio;
 			
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
@@ -54,16 +52,16 @@ public class Precio {
 		this.id = id;
 	}
 	/**
-	 * @return the idComercio
+	 * @return the idLista
 	 */
-	public int getIdComercio() {
-		return idComercio;
+	public int getIdLista() {
+		return idLista;
 	}
 	/**
-	 * @param idComercio the idComercio to set
+	 * @param idLista the idLista to set
 	 */
-	public void setIdComercio(int idComercio) {
-		this.idComercio = idComercio;
+	public void setIdLista(int idLista) {
+		this.idLista = idLista;
 	}
 	/**
 	 * @return the idArticulo
@@ -76,18 +74,6 @@ public class Precio {
 	 */
 	public void setIdArticulo(int idArticulo) {
 		this.idArticulo = idArticulo;
-	}
-	/**
-	 * @return the precio
-	 */
-	public Double getPrecio() {
-		return precio;
-	}
-	/**
-	 * @param precio the precio to set
-	 */
-	public void setPrecio(Double precio) {
-		this.precio = precio;
 	}
 	/**
 	 * @return the created
@@ -130,14 +116,10 @@ public class Precio {
 	 */
 	@Override
 	public String toString() {
-		return "Precio [id=" + id + ", idComercio=" + idComercio
-				+ ", idArticulo=" + idArticulo + ", precio=" + precio
-				+ ", created=" + created + ", updated=" + updated
-				+ ", borrado=" + borrado + "]";
+		return "ElementoLista [id=" + id + ", idLista=" + idLista
+				+ ", idArticulo=" + idArticulo + ", created=" + created
+				+ ", updated=" + updated + ", borrado=" + borrado + "]";
 	}
-	
-	
 
 
-	
 }

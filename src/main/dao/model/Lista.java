@@ -22,20 +22,18 @@ import javax.persistence.TemporalType;
  *
  */
 @Entity
-@Table(name="precio")
-public class Precio {
+@Table(name="lista")
+public class Lista {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@Column(name = "descripcion", unique=true, nullable = false)
+	private String descripcion;
 	
-	@Column(name = "idComercio", unique=true)
-	private int idComercio;
-	@Column(name = "idArticulo", unique=true)
-	private int idArticulo;
-	
-	private Double precio;
-			
+	@Column(name = "idUsuario", unique=true)
+	private int idUsuario; //id del usuario creador de la lista
+		
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
 	@Temporal(TemporalType.TIMESTAMP)
@@ -54,40 +52,28 @@ public class Precio {
 		this.id = id;
 	}
 	/**
-	 * @return the idComercio
+	 * @return the descripcion
 	 */
-	public int getIdComercio() {
-		return idComercio;
+	public String getDescripcion() {
+		return descripcion;
 	}
 	/**
-	 * @param idComercio the idComercio to set
+	 * @param descripcion the descripcion to set
 	 */
-	public void setIdComercio(int idComercio) {
-		this.idComercio = idComercio;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 	/**
-	 * @return the idArticulo
+	 * @return the idUsuario
 	 */
-	public int getIdArticulo() {
-		return idArticulo;
+	public int getIdUsuario() {
+		return idUsuario;
 	}
 	/**
-	 * @param idArticulo the idArticulo to set
+	 * @param idUsuario the idUsuario to set
 	 */
-	public void setIdArticulo(int idArticulo) {
-		this.idArticulo = idArticulo;
-	}
-	/**
-	 * @return the precio
-	 */
-	public Double getPrecio() {
-		return precio;
-	}
-	/**
-	 * @param precio the precio to set
-	 */
-	public void setPrecio(Double precio) {
-		this.precio = precio;
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 	/**
 	 * @return the created
@@ -130,14 +116,12 @@ public class Precio {
 	 */
 	@Override
 	public String toString() {
-		return "Precio [id=" + id + ", idComercio=" + idComercio
-				+ ", idArticulo=" + idArticulo + ", precio=" + precio
-				+ ", created=" + created + ", updated=" + updated
-				+ ", borrado=" + borrado + "]";
+		return "Lista [id=" + id + ", descripcion=" + descripcion
+				+ ", idUsuario=" + idUsuario + ", created=" + created
+				+ ", updated=" + updated + ", borrado=" + borrado + "]";
 	}
 	
 	
-
 
 	
 }
