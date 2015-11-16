@@ -22,7 +22,7 @@ import javax.persistence.TemporalType;
  *
  */
 @Entity
-@Table(name="lista")
+@Table(name="elementoLista")
 public class ElementoLista {
 
 	@Id
