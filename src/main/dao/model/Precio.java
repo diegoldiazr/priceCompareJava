@@ -5,7 +5,6 @@ package main.dao.model;
 
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,21 +14,25 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
+ * 
+ * Tipo de articulos.
+ * 
  * @author ddiaz
  *
  */
 @Entity
-@Table(name="articulo")
-public class Articulo {
+@Table(name="precio")
+public class Precio {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(name = "nombre", unique=true, nullable = false)
-	private String nombre;
-	private String linkImagen;
-	private Integer idTipo; //define el tipo de articulo de la tabla TipoArticulo
 	
+	private int idComercio;
+	private int idArticulo;
+	
+	private Double precio;
+			
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
 	@Temporal(TemporalType.TIMESTAMP)
@@ -48,40 +51,40 @@ public class Articulo {
 		this.id = id;
 	}
 	/**
-	 * @return the nombre
+	 * @return the idComercio
 	 */
-	public String getNombre() {
-		return nombre;
+	public int getIdComercio() {
+		return idComercio;
 	}
 	/**
-	 * @param nombre the nombre to set
+	 * @param idComercio the idComercio to set
 	 */
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setIdComercio(int idComercio) {
+		this.idComercio = idComercio;
 	}
 	/**
-	 * @return the linkImagen
+	 * @return the idArticulo
 	 */
-	public String getLinkImagen() {
-		return linkImagen;
+	public int getIdArticulo() {
+		return idArticulo;
 	}
 	/**
-	 * @param linkImagen the linkImagen to set
+	 * @param idArticulo the idArticulo to set
 	 */
-	public void setLinkImagen(String linkImagen) {
-		this.linkImagen = linkImagen;
+	public void setIdArticulo(int idArticulo) {
+		this.idArticulo = idArticulo;
 	}
 	/**
-	 * @return the tipo
+	 * @return the precio
 	 */
-	public Integer getTipo() {
-		return idTipo;
+	public Double getPrecio() {
+		return precio;
 	}
 	/**
-	 * @param tipo the tipo to set
+	 * @param precio the precio to set
 	 */
-	public void setTipo(Integer tipo) {
-		this.idTipo = tipo;
+	public void setPrecio(Double precio) {
+		this.precio = precio;
 	}
 	/**
 	 * @return the created
@@ -124,10 +127,14 @@ public class Articulo {
 	 */
 	@Override
 	public String toString() {
-		return "Articulo [id=" + id + ", nombre=" + nombre + ", linkImagen="
-				+ linkImagen + ", tipo=" + idTipo + ", created=" + created
-				+ ", updated=" + updated + ", borrado=" + borrado + "]";
+		return "Precio [id=" + id + ", idComercio=" + idComercio
+				+ ", idArticulo=" + idArticulo + ", precio=" + precio
+				+ ", created=" + created + ", updated=" + updated
+				+ ", borrado=" + borrado + "]";
 	}
+	
+	
+
 
 	
 }
