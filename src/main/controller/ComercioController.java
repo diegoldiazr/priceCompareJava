@@ -8,6 +8,7 @@ import java.util.List;
 
 import main.dao.model.Comercio;
 import main.service.interfaces.IComercioService;
+import main.utils.OrderingBean;
 import main.utils.ReturnAdapter;
 import main.utils.StandardResponse;
 
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 
@@ -29,7 +31,6 @@ import org.springframework.web.bind.annotation.RestController;
  *
  */
 @RestController
-@RequestMapping("/data/comercios")
 public class ComercioController {
 	
 	@Autowired
@@ -38,7 +39,7 @@ public class ComercioController {
 	private Logger log = Logger.getLogger(ComercioController.class);
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(method = RequestMethod.GET, value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.GET, value = "/data/comercios/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ReturnAdapter getComercioById(
 			@PathVariable("id") Integer id){
 		ReturnAdapter result = new ReturnAdapter();
@@ -59,12 +60,27 @@ public class ComercioController {
 		return result;
 	}
 	
+		
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ReturnAdapter getComercios(){
+	
+	@RequestMapping(method = RequestMethod.GET, 	
+			value = "/data/comercios",
+			produces = MediaType.APPLICATION_JSON_VALUE)	
+	public ReturnAdapter getComercios(
+			@RequestParam(value="nombre", required=false) String nombre,
+			@RequestParam(value="borrado", required=false) String borrado,
+			@RequestParam(value="orderBy", required=false) String orderBy){
 		ReturnAdapter result = new ReturnAdapter();
+		OrderingBean ordering = new OrderingBean(orderBy);
+		comercioService.setOrderBy(ordering.getOrderBy());
+		
 		try{
-			List l = comercioService.getComercios();
+			List l = null;
+			if (nombre==null)
+				l = comercioService.getComercios();
+			else
+				l = comercioService.getComerciosByQuery(nombre, borrado);
+			
 			if (l!=null){				
 				result.setNumResult(l.size());				
 				result.setData(l);
@@ -88,7 +104,9 @@ public class ComercioController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST,  
-					produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+			value = "/data/comercios",
+			produces = MediaType.APPLICATION_JSON_VALUE, 
+			consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ReturnAdapter save(@RequestBody Comercio comercio){
 		ReturnAdapter result = new ReturnAdapter();
 		try{
@@ -109,8 +127,10 @@ public class ComercioController {
 	 * @param comercio
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.PUT, value = "/{id}", 
-					produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.PUT, 
+			value = "/data/comercios/{id}", 			
+			produces = MediaType.APPLICATION_JSON_VALUE, 
+			consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ReturnAdapter update(
 			@PathVariable("id") Integer id,
 			@RequestBody Comercio comercio){
@@ -131,8 +151,9 @@ public class ComercioController {
 	 * @param id 
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.DELETE, value = "/{id}", 
-					produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.DELETE, 
+			value = "/data/comercios/{id}", 
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ReturnAdapter delete(
 			@PathVariable("id") Integer id){
 		ReturnAdapter result = new ReturnAdapter();

@@ -14,7 +14,7 @@ public class Version {
 	private String dateVersion;
 	
 	private static final String VERSION = "0.0.1-SNAPSHOT";
-	private static final String DATE = "19/10/2015";
+	private static final String DATE = "19/11/2015";
 	
 	public Version() {
 		super();

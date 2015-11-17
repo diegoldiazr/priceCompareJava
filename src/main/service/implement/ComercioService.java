@@ -6,6 +6,8 @@ package main.service.implement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import main.dao.interfaces.IComercioDao;
 import main.dao.model.Comercio;
@@ -128,4 +130,26 @@ public class ComercioService implements IComercioService {
 		return res;
 	}
 
+	/**
+	 *  Este metodo asigna el orderBy. Descomentar si se va a requerir.
+	 *
+	 */
+	public void setOrderBy(String orderBy) {
+		this.comercioDao.setOrderBy(orderBy);
+	}
+
+	@Override
+	public List<Comercio> getComerciosByQuery(String nombre, String borrado) throws Exception {
+		Map<String, Object> m = new TreeMap<String, Object>();
+
+		if (nombre!=null){
+			m.put("nombre", nombre.trim().toUpperCase());
+		}
+		if (borrado!=null){			
+			m.put("borrado", borrado.trim().toUpperCase().equals("TRUE"));			
+		}
+		
+		return comercioDao.getByQuery(m);
+
+	}
 }

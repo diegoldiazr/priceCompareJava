@@ -3,17 +3,19 @@
  */
 package main.dao.interfaces;
 
+import java.io.Serializable;
 import java.util.List;
-
-import org.hibernate.exception.DataException;
+import java.util.Map;
 
 import main.dao.model.Comercio;
+
+import org.hibernate.exception.DataException;
 
 /**
  * @author ddiaz
  *
  */
-public interface IComercioDao {
+public interface IComercioDao extends IAbstractDao<Comercio, Serializable>{
 	
 	void saveComercio(Comercio comercio) throws DataException;
     
@@ -24,5 +26,7 @@ public interface IComercioDao {
     Comercio findById(int ssn) throws DataException;
      
     void updateComercio(Comercio comercio) throws DataException;
+
+    List<Comercio>  getByQuery(Map<String, Object> m) throws DataException;
 
 }
