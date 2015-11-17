@@ -1,17 +1,18 @@
 package main.dao.implement;
 
+import java.io.Serializable;
 import java.util.List;
+
+import main.dao.interfaces.IElementoListaDao;
+import main.dao.model.ElementoLista;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import main.dao.interfaces.IElementoListaDao;
-import main.dao.model.ElementoLista;
-
 @Repository("elementoListaDao")
-public class ElementoListaDao extends AbstractDao implements IElementoListaDao{
+public class ElementoListaDao extends AbstractDao<ElementoLista, Serializable> implements IElementoListaDao{
  
     public void saveElementoLista(ElementoLista elementoLista) {
         persist(elementoLista);
