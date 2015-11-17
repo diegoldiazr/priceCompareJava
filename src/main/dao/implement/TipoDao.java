@@ -1,17 +1,18 @@
 package main.dao.implement;
 
+import java.io.Serializable;
 import java.util.List;
+
+import main.dao.interfaces.ITipoDao;
+import main.dao.model.Tipo;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import main.dao.interfaces.ITipoDao;
-import main.dao.model.Tipo;
-
 @Repository("tipoDao")
-public class TipoDao extends AbstractDao implements ITipoDao{
+public class TipoDao extends AbstractDao<Tipo, Serializable> implements ITipoDao{
  
     public void saveTipo(Tipo tipo) {
         persist(tipo);
@@ -20,7 +21,9 @@ public class TipoDao extends AbstractDao implements ITipoDao{
     @SuppressWarnings("unchecked")
     public List<Tipo> findAllTipos() {
         Criteria criteria = getSession().createCriteria(Tipo.class);
-        return (List<Tipo>) criteria.list();
+        Criteria criteriaConOrder = asignarOrdenacionACriteria(criteria);
+		List<Tipo> list = criteriaConOrder.list();
+		return list;		        
     }
  
     public void deleteTipoById(int ssn) {

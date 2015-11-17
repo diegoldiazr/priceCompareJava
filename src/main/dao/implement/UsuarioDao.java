@@ -1,17 +1,18 @@
 package main.dao.implement;
 
+import java.io.Serializable;
 import java.util.List;
+
+import main.dao.interfaces.IUsuarioDao;
+import main.dao.model.Usuario;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import main.dao.interfaces.IUsuarioDao;
-import main.dao.model.Usuario;
-
 @Repository("usuarioDao")
-public class UsuarioDao extends AbstractDao implements IUsuarioDao{
+public class UsuarioDao extends AbstractDao<Usuario, Serializable> implements IUsuarioDao{
  
     public void saveUsuario(Usuario usuario) {
         persist(usuario);
@@ -20,7 +21,9 @@ public class UsuarioDao extends AbstractDao implements IUsuarioDao{
     @SuppressWarnings("unchecked")
     public List<Usuario> findAllUsuarios() {
         Criteria criteria = getSession().createCriteria(Usuario.class);
-        return (List<Usuario>) criteria.list();
+        Criteria criteriaConOrder = asignarOrdenacionACriteria(criteria);
+		List<Usuario> list = criteriaConOrder.list();
+		return list;		        
     }
  
     public void deleteUsuarioById(int ssn) {

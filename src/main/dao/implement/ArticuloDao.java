@@ -1,17 +1,18 @@
 package main.dao.implement;
 
+import java.io.Serializable;
 import java.util.List;
+
+import main.dao.interfaces.IArticuloDao;
+import main.dao.model.Articulo;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import main.dao.interfaces.IArticuloDao;
-import main.dao.model.Articulo;
-
 @Repository("articuloDao")
-public class ArticuloDao extends AbstractDao implements IArticuloDao{
+public class ArticuloDao extends AbstractDao<Articulo, Serializable> implements IArticuloDao{
  
     public void saveArticulo(Articulo articulo) {
         persist(articulo);
@@ -20,7 +21,9 @@ public class ArticuloDao extends AbstractDao implements IArticuloDao{
     @SuppressWarnings("unchecked")
     public List<Articulo> findAllArticulos() {
         Criteria criteria = getSession().createCriteria(Articulo.class);
-        return (List<Articulo>) criteria.list();
+        Criteria criteriaConOrder = asignarOrdenacionACriteria(criteria);
+		List<Articulo> list = criteriaConOrder.list();
+		return list;		        
     }
  
     public void deleteArticuloById(int ssn) {

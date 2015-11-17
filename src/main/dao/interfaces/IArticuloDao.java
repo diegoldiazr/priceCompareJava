@@ -3,17 +3,18 @@
  */
 package main.dao.interfaces;
 
+import java.io.Serializable;
 import java.util.List;
 
-import org.hibernate.exception.DataException;
-
 import main.dao.model.Articulo;
+
+import org.hibernate.exception.DataException;
 
 /**
  * @author ddiaz
  *
  */
-public interface IArticuloDao {
+public interface IArticuloDao extends IAbstractDao<Articulo, Serializable>{
 	
 	void saveArticulo(Articulo articulo) throws DataException;
     

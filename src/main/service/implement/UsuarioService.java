@@ -131,4 +131,11 @@ public class UsuarioService implements IUsuarioService {
 		return res;
 	}
 
+	/**
+	 *  Este metodo asigna el orderBy. Descomentar si se va a requerir.
+	 *
+	 */
+	public void setOrderBy(String orderBy) {
+		this.usuarioDao.setOrderBy(orderBy);
+	}
 }

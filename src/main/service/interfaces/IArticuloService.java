@@ -6,13 +6,14 @@ package main.service.interfaces;
 import java.util.List;
 
 import main.dao.model.Articulo;
+import main.utils.IOrderingService;
 import main.utils.ReturnAdapter;
 
 /**
  * @author ddiaz
  *
  */
-public interface IArticuloService {
+public interface IArticuloService extends IOrderingService{
 
 	Articulo getArticuloById(Integer id) throws Exception;
 	

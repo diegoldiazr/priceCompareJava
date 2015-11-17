@@ -3,17 +3,18 @@
  */
 package main.dao.interfaces;
 
+import java.io.Serializable;
 import java.util.List;
 
-import org.hibernate.exception.DataException;
-
 import main.dao.model.Lista;
+
+import org.hibernate.exception.DataException;
 
 /**
  * @author ddiaz
  *
  */
-public interface IListaDao {
+public interface IListaDao extends IAbstractDao<Lista, Serializable>{
 	
 	void saveLista(Lista lista) throws DataException;
     

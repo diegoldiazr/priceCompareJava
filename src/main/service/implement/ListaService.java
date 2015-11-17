@@ -125,4 +125,11 @@ public class ListaService implements IListaService {
 		return res;
 	}
 
+	/**
+	 *  Este metodo asigna el orderBy. Descomentar si se va a requerir.
+	 *
+	 */
+	public void setOrderBy(String orderBy) {
+		this.listaDao.setOrderBy(orderBy);
+	}
 }

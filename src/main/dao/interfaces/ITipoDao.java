@@ -3,17 +3,18 @@
  */
 package main.dao.interfaces;
 
+import java.io.Serializable;
 import java.util.List;
 
-import org.hibernate.exception.DataException;
-
 import main.dao.model.Tipo;
+
+import org.hibernate.exception.DataException;
 
 /**
  * @author ddiaz
  *
  */
-public interface ITipoDao {
+public interface ITipoDao extends IAbstractDao<Tipo, Serializable>{
 	
 	void saveTipo(Tipo tipo) throws DataException;
     

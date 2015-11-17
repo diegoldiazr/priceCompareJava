@@ -6,13 +6,14 @@ package main.service.interfaces;
 import java.util.List;
 
 import main.dao.model.Tipo;
+import main.utils.IOrderingService;
 import main.utils.ReturnAdapter;
 
 /**
  * @author ddiaz
  *
  */
-public interface ITipoService {
+public interface ITipoService extends IOrderingService{
 
 	Tipo getTipoById(Integer id) throws Exception;
 	

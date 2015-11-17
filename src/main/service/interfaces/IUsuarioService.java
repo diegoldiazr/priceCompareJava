@@ -6,13 +6,14 @@ package main.service.interfaces;
 import java.util.List;
 
 import main.dao.model.Usuario;
+import main.utils.IOrderingService;
 import main.utils.ReturnAdapter;
 
 /**
  * @author ddiaz
  *
  */
-public interface IUsuarioService {
+public interface IUsuarioService extends IOrderingService{
 
 	Usuario getUsuarioById(Integer id) throws Exception;
 	

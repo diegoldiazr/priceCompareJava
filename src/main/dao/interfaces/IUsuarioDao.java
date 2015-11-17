@@ -3,17 +3,18 @@
  */
 package main.dao.interfaces;
 
+import java.io.Serializable;
 import java.util.List;
 
-import org.hibernate.exception.DataException;
-
 import main.dao.model.Usuario;
+
+import org.hibernate.exception.DataException;
 
 /**
  * @author ddiaz
  *
  */
-public interface IUsuarioDao {
+public interface IUsuarioDao extends IAbstractDao<Usuario, Serializable>{
 	
 	void saveUsuario(Usuario usuario) throws DataException;
     

@@ -1,17 +1,18 @@
 package main.dao.implement;
 
+import java.io.Serializable;
 import java.util.List;
+
+import main.dao.interfaces.IListaDao;
+import main.dao.model.Lista;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import main.dao.interfaces.IListaDao;
-import main.dao.model.Lista;
-
 @Repository("listaDao")
-public class ListaDao extends AbstractDao implements IListaDao{
+public class ListaDao extends AbstractDao<Lista, Serializable> implements IListaDao{
  
     public void saveLista(Lista lista) {
         persist(lista);
@@ -20,7 +21,9 @@ public class ListaDao extends AbstractDao implements IListaDao{
     @SuppressWarnings("unchecked")
     public List<Lista> findAllListas() {
         Criteria criteria = getSession().createCriteria(Lista.class);
-        return (List<Lista>) criteria.list();
+        Criteria criteriaConOrder = asignarOrdenacionACriteria(criteria);
+		List<Lista> list = criteriaConOrder.list();
+		return list;		        
     }
  
     public void deleteListaById(int ssn) {

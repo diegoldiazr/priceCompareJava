@@ -128,5 +128,13 @@ public class ArticuloService implements IArticuloService {
 		res.setUpdated(new Date());
 		return res;
 	}
+	
+	/**
+	 *  Este metodo asigna el orderBy. Descomentar si se va a requerir.
+	 *
+	 */
+	public void setOrderBy(String orderBy) {
+		this.articuloDao.setOrderBy(orderBy);
+	}
 
 }

@@ -6,13 +6,14 @@ package main.service.interfaces;
 import java.util.List;
 
 import main.dao.model.Lista;
+import main.utils.IOrderingService;
 import main.utils.ReturnAdapter;
 
 /**
  * @author ddiaz
  *
  */
-public interface IListaService {
+public interface IListaService extends IOrderingService{
 
 	Lista getListaById(Integer id) throws Exception;
 	
