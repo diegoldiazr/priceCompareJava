@@ -29,7 +29,6 @@ import org.springframework.web.bind.annotation.RestController;
  *
  */
 @RestController
-@RequestMapping("/data/listas")
 public class ListaController {
 	
 	@Autowired
@@ -38,7 +37,7 @@ public class ListaController {
 	private Logger log = Logger.getLogger(ListaController.class);
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(method = RequestMethod.GET, value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.GET, value = "/data/listas/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ReturnAdapter getListaById(
 			@PathVariable("id") Integer id){
 		ReturnAdapter result = new ReturnAdapter();
@@ -60,7 +59,9 @@ public class ListaController {
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.GET, 
+			value="/data/listas", 
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ReturnAdapter getListas(){
 		ReturnAdapter result = new ReturnAdapter();
 		try{
@@ -87,8 +88,9 @@ public class ListaController {
 	 * @param lista
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.POST,  
-					produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.POST,
+				value="/data/listas",
+				produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ReturnAdapter save(@RequestBody Lista lista){
 		ReturnAdapter result = new ReturnAdapter();
 		try{
@@ -109,7 +111,7 @@ public class ListaController {
 	 * @param lista
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.PUT, value = "/{id}", 
+	@RequestMapping(method = RequestMethod.PUT, value = "/data/listas/{id}", 
 					produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ReturnAdapter update(
 			@PathVariable("id") Integer id,
@@ -131,7 +133,7 @@ public class ListaController {
 	 * @param id 
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.DELETE, value = "/{id}", 
+	@RequestMapping(method = RequestMethod.DELETE, value = "/data/listas/{id}", 
 					produces = MediaType.APPLICATION_JSON_VALUE)
 	public ReturnAdapter delete(
 			@PathVariable("id") Integer id){

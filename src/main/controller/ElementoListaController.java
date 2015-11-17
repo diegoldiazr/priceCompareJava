@@ -29,7 +29,6 @@ import org.springframework.web.bind.annotation.RestController;
  *
  */
 @RestController
-@RequestMapping("/data/elementoListas")
 public class ElementoListaController {
 	
 	@Autowired
@@ -38,7 +37,7 @@ public class ElementoListaController {
 	private Logger log = Logger.getLogger(ElementoListaController.class);
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(method = RequestMethod.GET, value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.GET, value = "/data/elementoListas/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ReturnAdapter getElementoListaById(
 			@PathVariable("id") Integer id){
 		ReturnAdapter result = new ReturnAdapter();
@@ -60,7 +59,9 @@ public class ElementoListaController {
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.GET, 
+				value="/data/elementoListas", 
+				produces = MediaType.APPLICATION_JSON_VALUE)
 	public ReturnAdapter getElementoListas(){
 		ReturnAdapter result = new ReturnAdapter();
 		try{
@@ -88,7 +89,8 @@ public class ElementoListaController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST,  
-					produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+			value="/data/elementoListas",
+			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ReturnAdapter save(@RequestBody ElementoLista elementoLista){
 		ReturnAdapter result = new ReturnAdapter();
 		try{
@@ -108,7 +110,7 @@ public class ElementoListaController {
 	 * @param id 
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.DELETE, value = "/{id}", 
+	@RequestMapping(method = RequestMethod.DELETE, value = "/data/elementoListas/{id}", 
 					produces = MediaType.APPLICATION_JSON_VALUE)
 	public ReturnAdapter delete(
 			@PathVariable("id") Integer id){

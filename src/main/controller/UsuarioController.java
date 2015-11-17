@@ -29,7 +29,6 @@ import org.springframework.web.bind.annotation.RestController;
  *
  */
 @RestController
-@RequestMapping("/data/usuarios")
 public class UsuarioController {
 	
 	@Autowired
@@ -38,7 +37,7 @@ public class UsuarioController {
 	private Logger log = Logger.getLogger(UsuarioController.class);
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(method = RequestMethod.GET, value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.GET, value = "/data/usuarios/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ReturnAdapter getUsuarioById(
 			@PathVariable("id") Integer id){
 		ReturnAdapter result = new ReturnAdapter();
@@ -60,7 +59,9 @@ public class UsuarioController {
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.GET, 
+			value="/data/usuarios",
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ReturnAdapter getUsuarios(){
 		ReturnAdapter result = new ReturnAdapter();
 		try{
@@ -88,7 +89,8 @@ public class UsuarioController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST,  
-					produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+				value="/data/usuarios",
+				produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ReturnAdapter save(@RequestBody Usuario usuario){
 		ReturnAdapter result = new ReturnAdapter();
 		try{
@@ -109,7 +111,7 @@ public class UsuarioController {
 	 * @param usuario
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.PUT, value = "/{id}", 
+	@RequestMapping(method = RequestMethod.PUT, value = "/data/usuarios/{id}", 
 					produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ReturnAdapter update(
 			@PathVariable("id") Integer id,
@@ -131,7 +133,7 @@ public class UsuarioController {
 	 * @param id 
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.DELETE, value = "/{id}", 
+	@RequestMapping(method = RequestMethod.DELETE, value = "/data/usuarios/{id}", 
 					produces = MediaType.APPLICATION_JSON_VALUE)
 	public ReturnAdapter delete(
 			@PathVariable("id") Integer id){
