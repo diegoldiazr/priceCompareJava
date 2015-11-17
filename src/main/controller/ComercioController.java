@@ -76,7 +76,7 @@ public class ComercioController {
 		
 		try{
 			List l = null;
-			if (nombre==null)
+			if (nombre==null && borrado==null)
 				l = comercioService.getComercios();
 			else
 				l = comercioService.getComerciosByQuery(nombre, borrado);

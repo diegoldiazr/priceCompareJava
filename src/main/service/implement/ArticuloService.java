@@ -6,6 +6,8 @@ package main.service.implement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import main.dao.interfaces.IArticuloDao;
 import main.dao.model.Articulo;
@@ -135,6 +137,23 @@ public class ArticuloService implements IArticuloService {
 	 */
 	public void setOrderBy(String orderBy) {
 		this.articuloDao.setOrderBy(orderBy);
+	}
+
+	@Override
+	public List<Articulo> getArticulosByQuery(String nombre, String borrado, String tipo) {	
+		Map<String, Object> m = new TreeMap<String, Object>();
+
+		if (nombre!=null){
+			m.put("nombre", nombre.trim().toUpperCase());
+		}
+		if (borrado!=null){			
+			m.put("borrado", borrado.trim().toUpperCase().equals("TRUE"));			
+		}
+		if (tipo!=null){			
+			m.put("tipo", new Integer(tipo).intValue());			
+		}
+		
+		return articuloDao.getByQuery(m);
 	}
 
 }

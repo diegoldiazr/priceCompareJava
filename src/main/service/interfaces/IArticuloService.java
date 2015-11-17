@@ -25,4 +25,6 @@ public interface IArticuloService extends IOrderingService{
 	
 	ReturnAdapter deleteArticulo(Integer id) throws Exception;
 
+	List<Articulo> getArticulosByQuery(String nombre, String borrado, String tipo);
+
 }
