@@ -6,6 +6,8 @@ package main.service.implement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import main.dao.interfaces.IListaDao;
 import main.dao.model.Lista;
@@ -131,5 +133,23 @@ public class ListaService implements IListaService {
 	 */
 	public void setOrderBy(String orderBy) {
 		this.listaDao.setOrderBy(orderBy);
+	}
+
+	@Override
+	public List<Lista> getListasByQuery(String descripcion, String idUsuario,
+			String borrado) throws Exception {
+		Map<String, Object> m = new TreeMap<String, Object>();
+
+		if (descripcion!=null){
+			m.put("descripcion", descripcion.trim().toUpperCase());
+		}
+		if (borrado!=null){			
+			m.put("borrado", borrado.trim().toUpperCase().equals("TRUE"));			
+		}
+		if (idUsuario!=null){			
+			m.put("idUsuario", new Integer(idUsuario).intValue());			
+		}
+		
+		return listaDao.getByQuery(m);
 	}
 }

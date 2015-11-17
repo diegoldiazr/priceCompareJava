@@ -25,4 +25,6 @@ public interface IListaService extends IOrderingService{
 	
 	ReturnAdapter deleteLista(Integer id) throws Exception;
 
+	List<Lista> getListasByQuery(String descripcion, String idUsuario, String borrado) throws Exception;
+
 }

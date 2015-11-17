@@ -8,6 +8,7 @@ import java.util.List;
 
 import main.dao.model.Lista;
 import main.service.interfaces.IListaService;
+import main.utils.OrderingBean;
 import main.utils.ReturnAdapter;
 import main.utils.StandardResponse;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -62,10 +64,22 @@ public class ListaController {
 	@RequestMapping(method = RequestMethod.GET, 
 			value="/data/listas", 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ReturnAdapter getListas(){
+	public ReturnAdapter getListas(
+		@RequestParam(value="descripcion", required=false) String descripcion,
+		@RequestParam(value="idUsuario", required=false) String idUsuario,
+		@RequestParam(value="borrado", required=false) String borrado,
+		@RequestParam(value="orderBy", required=false) String orderBy){
 		ReturnAdapter result = new ReturnAdapter();
-		try{
-			List l = listaService.getListas();
+		OrderingBean ordering = new OrderingBean(orderBy);
+		listaService.setOrderBy(ordering.getOrderBy());
+		
+		try{			
+			List l = null;
+			if (descripcion==null && idUsuario==null && borrado==null)
+				l = listaService.getListas();
+			else
+				l = listaService.getListasByQuery(descripcion, idUsuario, borrado);
+			
 			if (l!=null){				
 				result.setNumResult(l.size());				
 				result.setData(l);

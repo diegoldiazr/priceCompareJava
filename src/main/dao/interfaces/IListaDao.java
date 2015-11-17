@@ -5,6 +5,7 @@ package main.dao.interfaces;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import main.dao.model.Lista;
 
@@ -25,5 +26,7 @@ public interface IListaDao extends IAbstractDao<Lista, Serializable>{
     Lista findById(int ssn) throws DataException;
      
     void updateLista(Lista lista) throws DataException;
+
+	List<Lista> getByQuery(Map<String, Object> m) throws DataException;
 
 }
