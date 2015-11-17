@@ -6,6 +6,8 @@ package main.service.implement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import main.dao.interfaces.IPrecioDao;
 import main.dao.model.Precio;
@@ -123,4 +125,29 @@ public class PrecioService implements IPrecioService {
 		return res;
 	}
 
+	/**
+	 *  Este metodo asigna el orderBy. Descomentar si se va a requerir.
+	 *
+	 */
+	public void setOrderBy(String orderBy) {
+		this.precioDao.setOrderBy(orderBy);
+	}
+
+	@Override
+	public List<Precio> getPreciosByQuery(String idComercio, String borrado,
+			String idArticulo) throws Exception {
+		Map<String, Object> m = new TreeMap<String, Object>();
+
+		if (idComercio!=null){
+			m.put("idComercio", new Integer(idComercio).intValue());
+		}
+		if (borrado!=null){			
+			m.put("borrado", borrado.trim().toUpperCase().equals("TRUE"));			
+		}
+		if (idArticulo!=null){			
+			m.put("idArticulo", new Integer(idArticulo).intValue());			
+		}
+		
+		return precioDao.getByQuery(m);
+	}
 }

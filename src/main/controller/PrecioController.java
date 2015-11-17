@@ -8,6 +8,7 @@ import java.util.List;
 
 import main.dao.model.Precio;
 import main.service.interfaces.IPrecioService;
+import main.utils.OrderingBean;
 import main.utils.ReturnAdapter;
 import main.utils.StandardResponse;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -62,10 +64,22 @@ public class PrecioController {
 	@RequestMapping(method = RequestMethod.GET, 
 		value="/data/precios",
 		produces = MediaType.APPLICATION_JSON_VALUE)
-	public ReturnAdapter getPrecios(){
+	public ReturnAdapter getPrecios(
+		@RequestParam(value="idComercio", required=false) String idComercio,
+		@RequestParam(value="idArticulo", required=false) String idArticulo,
+		@RequestParam(value="borrado", required=false) String borrado,
+		@RequestParam(value="orderBy", required=false) String orderBy){
 		ReturnAdapter result = new ReturnAdapter();
+		OrderingBean ordering = new OrderingBean(orderBy);
+		precioService.setOrderBy(ordering.getOrderBy());
+		
 		try{
-			List l = precioService.getPrecios();
+			List l = null;
+			if (idComercio==null && borrado==null&&idArticulo==null)
+				l = precioService.getPrecios();
+			else
+				l = precioService.getPreciosByQuery(idComercio, borrado, idArticulo);
+			
 			if (l!=null){				
 				result.setNumResult(l.size());				
 				result.setData(l);
